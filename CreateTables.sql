@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS Pizza_D, Orders, Pizza_Topping, Delivery, DineIn, Pickup, P
 
 -- Customer Table
 CREATE TABLE Customer (
-  CustomerID VARCHAR(15) NOT NULL,
+  CustomerID INTEGER NOT NULL AUTO_INCREMENT,
   CustomerFirstName VARCHAR(15),
   CustomerLastName VARCHAR(15),
   CustomerPhone VARCHAR(11),
@@ -24,8 +24,8 @@ CREATE TABLE Customer (
 
 -- Order Table
 CREATE TABLE Orders (
-  OrderID VARCHAR(15) NOT NULL,
-  OrderCustID VARCHAR(15),
+  OrderID INTEGER NOT NULL AUTO_INCREMENT,
+  OrderCustID INTEGER,
   OrderDate TIMESTAMP NOT NULL,
   OrderType VARCHAR(15) NOT NULL,
   OrderCustPrice DECIMAL(5,2) NOT NULL,
@@ -37,22 +37,22 @@ CREATE TABLE Orders (
 
 -- DineIn Table
 CREATE TABLE DineIn (
-  DineInOrderID VARCHAR(15) NOT NULL PRIMARY KEY,
+  DineInOrderID INTEGER NOT NULL PRIMARY KEY,
   DineInTableNum VARCHAR(15) NOT NULL,
   FOREIGN KEY (DineInOrderID) REFERENCES Orders(OrderID)
 );
 
 -- Delivery Table
 CREATE TABLE Delivery (
-  DeliveryOrderID VARCHAR(15) NOT NULL PRIMARY KEY,
-  DeliveryCustomerID VARCHAR(15) NOT NULL,
+  DeliveryOrderID INTEGER NOT NULL PRIMARY KEY,
+  DeliveryCustomerID INTEGER NOT NULL,
   FOREIGN KEY (DeliveryCustomerID) REFERENCES Customer(CustomerID)
 );
 
 -- PickUp Table
 CREATE TABLE Pickup (
-  PickupOrderID VARCHAR(15) NOT NULL,
-  PickupCustomerID VARCHAR(20) NOT NULL,
+  PickupOrderID INTEGER NOT NULL,
+  PickupCustomerID INTEGER NOT NULL,
   PRIMARY KEY (PickupOrderID),
   FOREIGN KEY (PickupOrderID) REFERENCES Orders(OrderID)
 );
@@ -68,8 +68,8 @@ CREATE TABLE Base (
 
 -- Pizza Table
 CREATE TABLE Pizza (
-  PizzaID VARCHAR(15) PRIMARY KEY,
-  PizzaOrdID VARCHAR(15) NOT NULL,
+  PizzaID INTEGER PRIMARY KEY AUTO_INCREMENT,
+  PizzaOrdID INTEGER NOT NULL,
   PizzaBaseCrustType VARCHAR(15) NOT NULL,
   PizzaBaseSize VARCHAR(15) NOT NULL,
   PizzaBaseStatus VARCHAR(15) NOT NULL,
@@ -94,9 +94,9 @@ CREATE TABLE Topping (
 
 -- PizzaTopping Table
 CREATE TABLE Pizza_Topping (
-  Pizza_ToppingPizzaID VARCHAR(20) NOT NULL,
+  Pizza_ToppingPizzaID INTEGER NOT NULL,
   Pizza_ToppingToppingName VARCHAR(20) NOT NULL,
-  Pizz_ToppingExtra BOOL,
+  Pizza_ToppingExtra BOOL,
   PRIMARY KEY (Pizza_ToppingPizzaID, Pizza_ToppingToppingName),
   FOREIGN KEY (Pizza_ToppingPizzaID) REFERENCES Pizza(PizzaID),
   FOREIGN KEY (Pizza_ToppingToppingName) REFERENCES Topping(ToppingName)
@@ -112,7 +112,7 @@ CREATE TABLE Discount (
 -- PizzaDiscount Table
 CREATE TABLE Pizza_D (
   Pizza_DDiscountID VARCHAR(10) NOT NULL,
-  Pizza_DPizzaID VARCHAR(10) NOT NULL,
+  Pizza_DPizzaID INTEGER NOT NULL,
   PRIMARY KEY (Pizza_DDiscountID, Pizza_DPizzaID),
   FOREIGN KEY (Pizza_DPizzaID) REFERENCES Pizza(PizzaID),
   FOREIGN KEY (Pizza_DDiscountID) REFERENCES Discount(DiscountID)
@@ -121,7 +121,7 @@ CREATE TABLE Pizza_D (
 -- OrderDiscount Table
 CREATE TABLE Order_D (
   Order_DDiscountID VARCHAR(10) NOT NULL,
-  Order_DOrderID VARCHAR(10) NOT NULL,
+  Order_DOrderID INTEGER NOT NULL,
   PRIMARY KEY (Order_DDiscountID, Order_DOrderID),
   FOREIGN KEY (Order_DOrderID) REFERENCES Orders(OrderID),
   FOREIGN KEY (Order_DDiscountID) REFERENCES Discount(DiscountID)
