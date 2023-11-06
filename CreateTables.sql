@@ -15,10 +15,10 @@ CREATE TABLE customer (
   CustomerFirstName VARCHAR(15),
   CustomerLastName VARCHAR(15),
   CustomerPhone VARCHAR(20),
-  CustomerStreet VARCHAR(30) NOT NULL,
-  CustomerCity VARCHAR(10) NOT NULL,
-  CustomerState VARCHAR(5) NOT NULL,
-  CustomerZipCode INT NOT NULL,
+  CustomerStreet VARCHAR(50),
+  CustomerCity VARCHAR(10),
+  CustomerState VARCHAR(5),
+  CustomerZipCode INT,
   PRIMARY KEY (CustomerID)
 );
 

@@ -515,6 +515,6 @@ FROM Pizza
 where PizzaBaseCostB=3.25;
 
 INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
-SELECT PizzaID, "Pepperoni", false
+SELECT PizzaID, "Pepperoni", true
 FROM Pizza 
 where PizzaBaseCostB=3.25;
