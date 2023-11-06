@@ -105,8 +105,8 @@ CREATE TABLE Pizza_Topping (
 -- Discount Table
 CREATE TABLE Discount (
   DiscountID VARCHAR(10) PRIMARY KEY,
-  DiscountPer VARCHAR(25) NOT NULL,
-  DiscountDollar DECIMAL(5,2) NOT NULL
+  DiscountPer VARCHAR(25),
+  DiscountDollar DECIMAL(5,2)
   );
 
 -- PizzaDiscount Table
