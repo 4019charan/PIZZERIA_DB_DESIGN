@@ -1,20 +1,7 @@
 SET SQL_SAFE_UPDATES = 0;
 
-DELETE FROM Pizza_D;
-DELETE FROM Orders;
-DELETE FROM Pizza_Topping;
-DELETE FROM Delivery;
-DELETE FROM DineIn;
-DELETE FROM Pickup;
-DELETE FROM Pizza; 
-DELETE FROM Base; 
-DELETE FROM Discount;
-DELETE FROM Order_D; 
-DELETE FROM Customer;
-DELETE FROM Topping;
-
 INSERT INTO 
-    Discount
+    discount
 VALUES
     ('Employee',15,NULL),
     ('Lunch Special Medium',NULL,1.00),
@@ -24,7 +11,7 @@ VALUES
     ('Gameday Special',20,NULL);
 
 INSERT INTO
-    Topping
+    topping
 VALUES
     (
         'Pepperoni',
@@ -145,7 +132,7 @@ VALUES
     ('Bacon', 0.25, 1.5, 89, 0, 1, 1.5, 2, 3);
 
 INSERT INTO
-    Base
+    base
 VALUES
     ('Small', 'Thin', 3, 0.5),
     ('Small', 'Original', 3, 0.75),
@@ -168,353 +155,353 @@ VALUES
 -- todo customer ID 
 -- todo remove hard code ids
 -- todo discount
-INSERT INTO Orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
+INSERT INTO orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
 VALUES
     (NULL, "2023-03-05 12:03:00", "DINE-IN", 20.75, 3.68, "COMPLETED");
 
-INSERT INTO DineIn (DineInOrderID, DineInTableNum)
+INSERT INTO dinein (DineInOrderID, DineInTableNum)
 SELECT LAST_INSERT_ID(), "21";
 
-INSERT INTO Pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
+INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
 SELECT DineInOrderID, "Thin", "Large", "COMPLETED", 3.68, 20.75
-FROM DineIn
+FROM dinein
 where DineInTableNum="21";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Pepperoni", false
-FROM Pizza
+FROM pizza
 where PizzaBaseCrustType="Thin";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Regular Cheese", true
-FROM Pizza
+FROM pizza
 where PizzaBaseCrustType="Thin";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Sausage", false
-FROM Pizza
+FROM pizza
 where PizzaBaseCrustType="Thin";
 
 -- order 2
-INSERT INTO Orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
+INSERT INTO orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
 VALUES
     (NULL, "2023-04-03 12:05:00", "DINE-IN", 19.78, 4.63, "COMPLETED");
 
-INSERT INTO DineIn (DineInOrderID, DineInTableNum)
+INSERT INTO dinein (DineInOrderID, DineInTableNum)
 SELECT LAST_INSERT_ID(), "4";
 
 -- first pizza for order 2
-INSERT INTO Pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
+INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
 SELECT DineInOrderID, "Pan", "Medium", "COMPLETED", 3.23, 12.85
-FROM DineIn
+FROM dinein
 where DineInTableNum="4";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Feta Cheese", false
-FROM Pizza
+FROM pizza
 where PizzaBaseCrustType="Pan";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Black Olives", false
-FROM Pizza
+FROM pizza
 where PizzaBaseCrustType="Pan";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Roma Tomato", false
-FROM Pizza
+FROM pizza
 where PizzaBaseCrustType="Pan";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Mushrooms", false
-FROM Pizza
+FROM pizza
 where PizzaBaseCrustType="Pan";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Banana Peppers", false
-FROM Pizza
+FROM pizza
 where PizzaBaseCrustType="Pan";
 
 -- second pizza for order 2
-INSERT INTO Pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
+INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
 SELECT DineInOrderID, "Original", "Small", "COMPLETED", 1.40, 6.93
-FROM DineIn
+FROM dinein
 WHERE DineInTableNum="4";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Banana Peppers", false
-FROM Pizza
+FROM pizza
 where PizzaBaseCrustType="Original";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Regular Cheese", false
-FROM Pizza
+FROM pizza
 where PizzaBaseCrustType="Original";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Chicken", false
-FROM Pizza
+FROM pizza
 where PizzaBaseCrustType="Original";
 
 -- andrew customer
-INSERT INTO Customer (CustomerFirstName, CustomerLastName, CustomerPhone)
+INSERT INTO customer (CustomerFirstName, CustomerLastName, CustomerPhone)
 VALUES ("Andrew", "Wilkes-Krier", "864-254-5861");
 
 -- andrews 6 pizzas
-INSERT INTO Orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
+INSERT INTO orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
 SELECT CustomerID, "2023-03-03 21:30:00", "PICKUP", 14.88*6, 3.30*6, "COMPLETED"
-FROM Customer
+FROM customer
 where CustomerPhone="864-254-5861";
 
-INSERT INTO Pickup
+INSERT INTO pickup
 SELECT LAST_INSERT_ID(), CustomerID
-FROM Customer
+FROM customer
 where CustomerPhone="864-254-5861";
 
-INSERT INTO Pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
+INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
 SELECT OrderID, "Original", "Large", "COMPLETED", 3.30, 14.88
-FROM Orders
+FROM orders
 where OrderDate="2023-03-03 21:30:00";
 
-INSERT INTO Pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
+INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
 SELECT OrderID, "Original", "Large", "COMPLETED", 3.30, 14.88
-FROM Orders
+FROM orders
 where OrderDate="2023-03-03 21:30:00";
 
-INSERT INTO Pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
+INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
 SELECT OrderID, "Original", "Large", "COMPLETED", 3.30, 14.88
-FROM Orders
+FROM orders
 where OrderDate="2023-03-03 21:30:00";
 
-INSERT INTO Pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
+INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
 SELECT OrderID, "Original", "Large", "COMPLETED", 3.30, 14.88
-FROM Orders
+FROM orders
 where OrderDate="2023-03-03 21:30:00";
 
-INSERT INTO Pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
+INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
 SELECT OrderID, "Original", "Large", "COMPLETED", 3.30, 14.88
-FROM Orders
+FROM orders
 where OrderDate="2023-03-03 21:30:00";
 
-INSERT INTO Pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
+INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
 SELECT OrderID, "Original", "Large", "COMPLETED", 3.30, 14.88
-FROM Orders
+FROM orders
 where OrderDate="2023-03-03 21:30:00";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Regular Cheese", false
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCrustType = "Original" and PizzaBaseSize = "Large";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Pepperoni", false
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCrustType = "Original" and PizzaBaseSize = "Large";
 
-UPDATE Customer
+UPDATE customer
 SET CustomerStreet="115 Party Blvd", CustomerCity="Anderson", CustomerState="SC", CustomerZipCode="29621"
 where CustomerFirstName="Andrew" and CustomerLastName="Wilkes-Krier";
 
-INSERT INTO Orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
+INSERT INTO orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
 SELECT CustomerID, "2023-04-20 19:11:00", "PICKUP", 27.94+31.5+26.75, 9.19+6.25+8.18,"COMPLETED"
-FROM Customer
+FROM customer
 where CustomerPhone="864-254-5861";
 
-INSERT INTO Delivery 
+INSERT INTO delivery
 SELECT LAST_INSERT_ID(), CustomerID
-FROM Customer
+FROM customer
 where CustomerPhone="864-254-5861";
 
 -- pepperoni + sausage pizza
-INSERT INTO Pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
+INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
 SELECT OrderID, "Original", "XLarge", "COMPLETED", 9.19, 27.94
-FROM Orders
+FROM orders
 where OrderDate="2023-04-20 19:11:00";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Pepperoni", false
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCrustType = "Original" and PizzaBaseSize = "XLarge";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Sausage", false
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCrustType = "Original" and PizzaBaseSize = "XLarge";
 
 -- pizza 2 ham + pineapple
-INSERT INTO Pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
+INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
 SELECT OrderID, "Original", "XLarge", "COMPLETED", 6.25, 31.50
-FROM Orders
+FROM orders
 where OrderDate="2023-04-20 19:11:00";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Ham", true
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCostB=6.25;
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Pineapple", true
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCostB=6.25;
 
 -- pizza 3 chix + bacon
-INSERT INTO Pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
+INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
 SELECT OrderID, "Original", "XLarge", "COMPLETED", 8.18, 26.75
-FROM Orders
+FROM orders
 where OrderDate="2023-04-20 19:11:00";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Bacon", false
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCostB=8.18;
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Chicken", false
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCostB=8.18;
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Four Cheese Blend", false
-FROM Pizza 
-where PizzaOrdID in (select OrderID from Orders where OrderDate="2023-04-20 19:11:00");
+FROM pizza 
+where PizzaOrdID in (select OrderID FROM orders where OrderDate="2023-04-20 19:11:00");
 
 -- matt engers order
-INSERT INTO Customer (CustomerFirstName, CustomerLastName, CustomerPhone)
+INSERT INTO customer (CustomerFirstName, CustomerLastName, CustomerPhone)
 VALUES ("Matt", "Engers", "864-474-9953");
 
-INSERT INTO Orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
+INSERT INTO orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
 SELECT CustomerID, "2023-03-02 17:30:00", "PICKUP", 27.45, 7.88,"COMPLETED"
-FROM Customer
+FROM customer
 where CustomerPhone="864-474-9953";
 
-INSERT INTO Pickup
+INSERT INTO pickup
 SELECT LAST_INSERT_ID(), CustomerID
-FROM Customer
+FROM customer
 where CustomerPhone="864-474-9953";
 
 -- Pizza with Green Pepper,
 -- Onion, Roma Tomatoes, Mushrooms, and Black Olives on it. He wants the Goat Cheese
 
-INSERT INTO Pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
+INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
 SELECT OrderID, "Gluten-Free", "XLarge", "COMPLETED", 7.88, 27.45
-FROM Orders
+FROM orders
 where OrderDate="2023-03-02 17:30:00";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Black Olives", false
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCostB=7.88;
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Goat Cheese", false
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCostB=7.88;
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Green Pepper", false
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCostB=7.88;
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Onion", false
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCostB=7.88;
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Roma Tomato", false
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCostB=7.88;
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Mushrooms", false
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCostB=7.88;
 
 -- frank turner
-INSERT INTO Customer (CustomerFirstName, CustomerLastName, CustomerPhone, CustomerStreet, CustomerState, CustomerCity, CustomerZipCode)
+INSERT INTO customer (CustomerFirstName, CustomerLastName, CustomerPhone, CustomerStreet, CustomerState, CustomerCity, CustomerZipCode)
 VALUES ("Frank", "Turner", "864-232-8944", "6745 Wessex St", "SC", "Anderson", "29621");
 
-INSERT INTO Orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
+INSERT INTO orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
 SELECT CustomerID, "2023-03-02 18:17:00", "DELIVERY", 27.45, 7.88,"COMPLETED"
-FROM Customer
+FROM customer
 where CustomerPhone="864-232-8944";
 
-INSERT INTO Delivery
+INSERT INTO delivery
 SELECT LAST_INSERT_ID(), CustomerID
-FROM Customer
+FROM customer
 where CustomerPhone="864-232-8944";
 
 -- One large pizza with Chicken, Green
 -- Peppers, Onions, and Mushrooms. He wants the Four Cheese Blend (extra) and thin crust 
 
-INSERT INTO Pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
+INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
 SELECT OrderID, "Thin", "Large", "COMPLETED", 4.24, 25.81
-FROM Orders
+FROM orders
 where OrderDate="2023-03-02 18:17:00";
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Chicken", false
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCostB=4.24;
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Green Pepper", false
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCostB=4.24;
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Onion", false
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCostB=4.24;
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Mushrooms", false
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCostB=4.24;
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Four Cheese Blend", true
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCostB=4.24;
 
 -- milo auckerman
-INSERT INTO Customer (CustomerFirstName, CustomerLastName, CustomerPhone, CustomerStreet, CustomerState, CustomerCity, CustomerZipCode)
+INSERT INTO customer (CustomerFirstName, CustomerLastName, CustomerPhone, CustomerStreet, CustomerState, CustomerCity, CustomerZipCode)
 VALUES ("Milo", "Auckerman", "864-878-5679", " 8879 Suburban Home,", "SC", "Anderson", "29621");
 
-INSERT INTO Orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
+INSERT INTO orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
 SELECT CustomerID, "2023-04-12 20:32:00", "DELIVERY", 18.00+19.25, 2.75+3.25, "COMPLETED"
-FROM Customer
+FROM customer
 where CustomerPhone="864-878-5679";
 
-INSERT INTO Delivery
+INSERT INTO delivery
 SELECT LAST_INSERT_ID(), CustomerID
-FROM Customer
+FROM customer
 where CustomerPhone="864-878-5679";
 
-INSERT INTO Pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
+INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
 SELECT OrderID, "Thin", "Large", "COMPLETED", 2.75, 18.00
-FROM Orders
+FROM orders
 where OrderDate="2023-04-12 20:32:00";
 
-INSERT INTO Pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
+INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
 SELECT OrderID, "Thin", "Large", "COMPLETED", 3.25, 19.25
-FROM Orders
+FROM orders
 where OrderDate="2023-04-12 20:32:00";
 
 -- one had the Four Cheese
 -- Blend on it (extra) (Price: $18.00, Cost: $2.75), the other was Regular Cheese and Pepperoni (extra)
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Four Cheese Blend", true
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCostB=2.75;
 
 -- pizza 2 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Regular Cheese", false 
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCostB=3.25;
 
-INSERT INTO Pizza_Topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
+INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Pepperoni", true
-FROM Pizza 
+FROM pizza 
 where PizzaBaseCostB=3.25;

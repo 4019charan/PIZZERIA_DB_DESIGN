@@ -14,9 +14,9 @@ CREATE TABLE customer (
   CustomerID INT NOT NULL AUTO_INCREMENT,
   CustomerFirstName VARCHAR(15),
   CustomerLastName VARCHAR(15),
-  CustomerPhone VARCHAR(11),
-  CustomerStreet VARCHAR(15) NOT NULL,
-  CustomerCity VARCHAR(10) NOT NULL,
+  CustomerPhone VARCHAR(40),
+  CustomerStreet VARCHAR(100) NOT NULL,
+  CustomerCity VARCHAR(20) NOT NULL,
   CustomerState VARCHAR(5) NOT NULL,
   CustomerZipCode INT NOT NULL,
   PRIMARY KEY (CustomerID)
@@ -24,7 +24,7 @@ CREATE TABLE customer (
 
 -- Order Table
 CREATE TABLE orders (
-  OrderID INT NOT NULL,
+  OrderID INT NOT NULL AUTO_INCREMENT,
   OrderCustID INT,
   OrderDate TIMESTAMP NOT NULL,
   OrderType VARCHAR(15) NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE base (
 
 -- Pizza Table
 CREATE TABLE pizza (
-  PizzaID INT PRIMARY KEY,
+  PizzaID INT PRIMARY KEY AUTO_INCREMENT,
   PizzaOrdID INT NOT NULL,
   PizzaBaseCrustType VARCHAR(15) NOT NULL,
   PizzaBaseSize VARCHAR(15) NOT NULL,
@@ -96,7 +96,7 @@ CREATE TABLE topping (
 CREATE TABLE pizza_topping (
   Pizza_ToppingPizzaID INT NOT NULL,
   Pizza_ToppingToppingName VARCHAR(20) NOT NULL,
-  Pizz_ToppingExtra BOOL,
+  Pizza_ToppingExtra BOOL,
   PRIMARY KEY (Pizza_ToppingPizzaID, Pizza_ToppingToppingName),
   FOREIGN KEY (Pizza_ToppingPizzaID) REFERENCES pizza(PizzaID),
   FOREIGN KEY (Pizza_ToppingToppingName) REFERENCES topping(ToppingName)
@@ -107,7 +107,7 @@ CREATE TABLE discount (
   DiscountID VARCHAR(30) PRIMARY KEY,
   DiscountPer INT,
   DiscountDollar DECIMAL(5,2)
-  );
+);
 
 -- PizzaDiscount Table
 CREATE TABLE pizza_d (
