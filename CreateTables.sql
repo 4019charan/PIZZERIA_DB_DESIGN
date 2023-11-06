@@ -11,11 +11,11 @@ DROP TABLE IF EXISTS pizza_d, orders, pizza_topping, delivery, dinein, pickup, p
 
 -- Customer Table
 CREATE TABLE customer (
-  CustomerID VARCHAR(15) NOT NULL,
+  CustomerID INTEGER NOT NULL AUTO_INCREMENT,
   CustomerFirstName VARCHAR(15),
   CustomerLastName VARCHAR(15),
-  CustomerPhone VARCHAR(11),
-  CustomerStreet VARCHAR(15) NOT NULL,
+  CustomerPhone VARCHAR(20),
+  CustomerStreet VARCHAR(30) NOT NULL,
   CustomerCity VARCHAR(10) NOT NULL,
   CustomerState VARCHAR(5) NOT NULL,
   CustomerZipCode INT NOT NULL,
