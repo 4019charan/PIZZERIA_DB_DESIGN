@@ -111,7 +111,7 @@ CREATE TABLE discount (
 
 -- PizzaDiscount Table
 CREATE TABLE pizza_d (
-  Pizza_DDiscountID VARCHAR(10) NOT NULL,
+  Pizza_DDiscountID VARCHAR(30) NOT NULL,
   Pizza_DPizzaID INT NOT NULL,
   PRIMARY KEY (Pizza_DDiscountID, Pizza_DPizzaID),
   FOREIGN KEY (Pizza_DPizzaID) REFERENCES pizza(PizzaID),

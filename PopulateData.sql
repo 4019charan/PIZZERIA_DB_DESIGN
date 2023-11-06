@@ -182,6 +182,11 @@ SELECT PizzaID, "Sausage", false
 FROM pizza
 where PizzaBaseCrustType="Thin";
 
+INSERT INTO pizza_d 
+SELECT "Lunch Special Large", PizzaID 
+from pizza 
+where PizzaBaseCostB=3.68;
+
 -- order 2
 INSERT INTO orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
 VALUES
