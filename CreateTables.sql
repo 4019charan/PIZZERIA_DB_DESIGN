@@ -120,7 +120,7 @@ CREATE TABLE pizza_d (
 
 -- OrderDiscount Table
 CREATE TABLE order_d (
-  Order_DDiscountID VARCHAR(10) NOT NULL,
+  Order_DDiscountID VARCHAR(30) NOT NULL,
   Order_DOrderID INT NOT NULL,
   PRIMARY KEY (Order_DDiscountID, Order_DOrderID),
   FOREIGN KEY (Order_DOrderID) REFERENCES orders(OrderID),

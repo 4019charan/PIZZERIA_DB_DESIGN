@@ -184,8 +184,8 @@ where PizzaBaseCrustType="Thin";
 
 INSERT INTO pizza_d 
 SELECT "Lunch Special Large", PizzaID 
-from pizza 
-where PizzaBaseCostB=3.68;
+from pizza p JOIN orders o ON p.PizzaOrdID = o.OrderID
+where PizzaBaseCostB=3.68 AND (OrderDate = '2023-03-05 12:03:00');
 
 -- order 2
 INSERT INTO orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
@@ -225,6 +225,16 @@ INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza
 SELECT PizzaID, "Banana Peppers", false
 FROM pizza
 where PizzaBaseCrustType="Pan";
+
+INSERT INTO pizza_d 
+SELECT "Specialty Pizza", PizzaID 
+from pizza p join orders o on p.PizzaOrdID = o.OrderID
+where PizzaBaseCostB=3.68 and (OrderDate = '2023-04-03 12:05:00');
+
+INSERT INTO pizza_d 
+SELECT "Lunch Special Medium", PizzaID 
+from pizza p join orders o on p.PizzaOrdID = o.OrderID
+where PizzaBaseCostB=3.68 and (OrderDate = '2023-04-03 12:05:00');
 
 -- second pizza for order 2
 INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
@@ -307,7 +317,7 @@ SET CustomerStreet="115 Party Blvd", CustomerCity="Anderson", CustomerState="SC"
 where CustomerFirstName="Andrew" and CustomerLastName="Wilkes-Krier";
 
 INSERT INTO orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
-SELECT CustomerID, "2023-04-20 19:11:00", "PICKUP", 27.94+31.5+26.75, 9.19+6.25+8.18,"COMPLETED"
+SELECT CustomerID, "2023-04-20 19:11:00", "DELIVERY", 27.94+31.5+26.75, 9.19+6.25+8.18,"COMPLETED"
 FROM customer
 where CustomerPhone="864-254-5861";
 
@@ -315,6 +325,12 @@ INSERT INTO delivery
 SELECT LAST_INSERT_ID(), CustomerID
 FROM customer
 where CustomerPhone="864-254-5861";
+
+INSERT INTO order_d (Order_dDiscountID,Order_dOrderID)
+SELECT "Gameday Special", OrderID
+FROM orders o join delivery d on o.OrderID = d.DeliveryOrderID
+join customer c on c.CustomerID = d.DeliveryCustomerID
+WHERE (o.OrderDate = '2023-04-20 19:11:00') AND (c.CustomerFirstName = 'Andrew');
 
 -- pepperoni + sausage pizza
 INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatus, PizzaBaseCostB, PizzaBaseCostC)
@@ -337,6 +353,11 @@ INSERT INTO pizza (PizzaOrdID, PizzaBaseCrustType, PizzaBaseSize, PizzaBaseStatu
 SELECT OrderID, "Original", "XLarge", "COMPLETED", 6.25, 31.50
 FROM orders
 where OrderDate="2023-04-20 19:11:00";
+
+INSERT INTO pizza_d 
+SELECT "Specialty Pizza", PizzaID 
+from pizza p join orders o on p.PizzaOrdID = o.OrderID
+where PizzaBaseCostB=6.25 and (OrderDate = '2023-04-20 19:11:00');
 
 INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Ham", true
@@ -391,6 +412,11 @@ SELECT OrderID, "Gluten-Free", "XLarge", "COMPLETED", 7.88, 27.45
 FROM orders
 where OrderDate="2023-03-02 17:30:00";
 
+INSERT INTO pizza_d 
+SELECT "Specialty Pizza", PizzaID 
+from pizza p join orders o on p.PizzaOrdID = o.OrderID
+where PizzaBaseCostB=7.88 and (OrderDate = '2023-03-02 17:30:00');
+
 INSERT INTO pizza_topping (Pizza_ToppingPizzaID, Pizza_ToppingToppingName, Pizza_ToppingExtra)
 SELECT PizzaID, "Black Olives", false
 FROM pizza 
@@ -426,7 +452,7 @@ INSERT INTO customer (CustomerFirstName, CustomerLastName, CustomerPhone, Custom
 VALUES ("Frank", "Turner", "864-232-8944", "6745 Wessex St", "SC", "Anderson", "29621");
 
 INSERT INTO orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
-SELECT CustomerID, "2023-03-02 18:17:00", "DELIVERY", 27.45, 7.88,"COMPLETED"
+SELECT CustomerID, "2023-03-02 18:17:00", "DELIVERY", 25.81, 4.24,"COMPLETED"
 FROM customer
 where CustomerPhone="864-232-8944";
 
@@ -470,12 +496,17 @@ where PizzaBaseCostB=4.24;
 
 -- milo auckerman
 INSERT INTO customer (CustomerFirstName, CustomerLastName, CustomerPhone, CustomerStreet, CustomerState, CustomerCity, CustomerZipCode)
-VALUES ("Milo", "Auckerman", "864-878-5679", " 8879 Suburban Home,", "SC", "Anderson", "29621");
+VALUES ("Milo", "Auckerman", "864-878-5679", "8879 Suburban Home", "SC", "Anderson", "29621");
 
 INSERT INTO orders (OrderCustID, OrderDate, OrderType, OrderCustPrice, OrderBusinessPrice, OrderStatus)
 SELECT CustomerID, "2023-04-12 20:32:00", "DELIVERY", 18.00+19.25, 2.75+3.25, "COMPLETED"
 FROM customer
 where CustomerPhone="864-878-5679";
+
+INSERT INTO order_d (Order_dDiscountID,Order_dOrderID)
+SELECT 'Employee', OrderID
+FROM orders o 
+WHERE OrderDate = "2023-04-12 20:32:00";
 
 INSERT INTO delivery
 SELECT LAST_INSERT_ID(), CustomerID

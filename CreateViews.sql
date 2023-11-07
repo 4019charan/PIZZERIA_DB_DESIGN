@@ -1,3 +1,7 @@
+DROP VIEW IF EXISTS ToppingPopularity;
+DROP VIEW IF EXISTS ProfitByPizza;
+DROP VIEW IF EXISTS ProfitByOrderType;
+
 CREATE VIEW ToppingPopularity AS 
 select ToppingName Topping, IF(sum(val) > 0, sum(val), 0) ToppingCount from topping
 left join (select Pizza_ToppingToppingName, IF(Pizza_ToppingExtra=true, 2, 1) val from pizza_topping) x
