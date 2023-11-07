@@ -1,3 +1,4 @@
+-- McKinnon Robinson, Charan Basireddy
 SET SQL_SAFE_UPDATES = 0;
 
 INSERT INTO 

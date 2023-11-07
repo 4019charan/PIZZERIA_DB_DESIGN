@@ -1,3 +1,5 @@
+-- McKinnon Robinson, Charan Basireddy
+
 DROP SCHEMA IF EXISTS PIZZERIA;
 
 CREATE SCHEMA PIZZERIA;
