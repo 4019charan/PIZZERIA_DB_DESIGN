@@ -1,8 +1,6 @@
 -- McKinnon Robinson, Charan Basireddy
 
-DROP VIEW IF EXISTS ToppingPopularity;
-DROP VIEW IF EXISTS ProfitByPizza;
-DROP VIEW IF EXISTS ProfitByOrderType;
+USE PIZZERIA;
 
 CREATE VIEW ToppingPopularity AS 
 select ToppingName Topping, IF(sum(val) > 0, sum(val), 0) ToppingCount from topping
@@ -17,7 +15,7 @@ DATE_FORMAT(OrderDate, '%Y-%m') Month
 from orders
 right join pizza on OrderID=PizzaOrdID
 group by PizzaBaseSize, PizzaBaseCrustType, Month
-order by Profit desc
+order by Profit desc;
 
 CREATE VIEW ProfitByOrderType AS 
 select OrderType customerType, 

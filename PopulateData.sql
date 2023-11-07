@@ -1,6 +1,8 @@
 -- McKinnon Robinson, Charan Basireddy
 SET SQL_SAFE_UPDATES = 0;
 
+USE PIZZERIA;
+
 INSERT INTO 
     discount
 VALUES
